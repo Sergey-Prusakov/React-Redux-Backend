@@ -4,29 +4,29 @@ import {
   Table,
   Column,
   BelongsToMany,
-  ForeignKey,
 } from 'sequelize-typescript';
 
 import { Post } from 'src/posts/posts.model';
-import { TargetPost } from 'src/tags-post/tags-post.model';
+import { TagsPost } from 'src/tags-post/tags-post.model';
 
 @Table({ tableName: 'tag' })
 export class Tag extends Model<Tag> {
   @Column({
-    type: DataType.INTEGER,
+    type: DataType.UUID,
+    defaultValue: DataType.UUIDV4,
     unique: true,
     primaryKey: true,
-    autoIncrement: true,
+    autoIncrement: false,
   })
-  id: number;
+  id: string;
 
   @Column({ type: DataType.STRING, allowNull: false })
   name: string;
 
-  @BelongsToMany(() => Post, () => TargetPost)
-  posts: Post[];
-
-  @ForeignKey(() => TargetPost)
+  /* @ForeignKey(() => TagsPost)
   @Column({ type: DataType.INTEGER })
-  postId: number;
+  postId: number; */
+
+  @BelongsToMany(() => Post, () => TagsPost)
+  posts: Post[];
 }

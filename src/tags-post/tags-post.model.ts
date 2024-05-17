@@ -3,7 +3,6 @@ import {
   Model,
   Table,
   Column,
-  // BelongsTo,
   ForeignKey,
   BelongsTo,
 } from 'sequelize-typescript';
@@ -11,15 +10,15 @@ import {
 import { Post } from 'src/posts/posts.model';
 import { Tag } from 'src/tags/tags.model';
 
-@Table({ tableName: 'targetPost' })
-export class TargetPost extends Model<TargetPost> {
+@Table({ tableName: 'tagsPost' })
+export class TagsPost extends Model<TagsPost> {
   @ForeignKey(() => Post)
   @Column({ type: DataType.INTEGER, primaryKey: true })
-  postId: number;
+  postId: string;
 
   @ForeignKey(() => Tag)
   @Column({ type: DataType.INTEGER, primaryKey: true })
-  tagId: number;
+  tagId: string;
 
   @BelongsTo(() => Post)
   post: Post;

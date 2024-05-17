@@ -10,24 +10,18 @@ import {
 
 import { User } from 'src/users/users.model';
 import { Tag } from 'src/tags/tags.model';
-import { TargetPost } from 'src/tags-post/tags-post.model';
+import { TagsPost } from 'src/tags-post/tags-post.model';
 
 @Table({ tableName: 'post' })
 export class Post extends Model<Post> {
   @Column({
-    type: DataType.INTEGER,
+    type: DataType.UUID,
+    defaultValue: DataType.UUIDV4,
     unique: true,
     primaryKey: true,
-    autoIncrement: true,
+    autoIncrement: false,
   })
-  id: number;
-
-  @BelongsTo(() => User)
-  user: User;
-
-  @ForeignKey(() => User)
-  @Column({ type: DataType.INTEGER })
-  userId: number;
+  id: string;
 
   @Column({ type: DataType.STRING, allowNull: false })
   title: string;
@@ -35,6 +29,17 @@ export class Post extends Model<Post> {
   @Column({ type: DataType.STRING, allowNull: false })
   content: string;
 
-  @BelongsToMany(() => Tag, () => TargetPost)
+  @ForeignKey(() => User)
+  @Column({ type: DataType.UUID })
+  userId: string;
+
+  /* @ForeignKey(() => TagsPost)
+  @Column({ type: DataType.INTEGER })
+  tagId: number; */
+
+  @BelongsTo(() => User)
+  user: User;
+
+  @BelongsToMany(() => Tag, () => TagsPost)
   tags: Tag[];
 }
