@@ -3,14 +3,11 @@ import {
   Model,
   Table,
   Column,
-  BelongsToMany,
   BelongsTo,
   ForeignKey,
 } from 'sequelize-typescript';
 
-import { User } from 'src/users/users.model';
-import { Tag } from 'src/tags/tags.model';
-import { TagsPost } from 'src/tags-post/tags-post.model';
+import { User } from 'src/modules/users/users.model';
 
 @Table({ tableName: 'post' })
 export class Post extends Model<Post> {
@@ -40,6 +37,6 @@ export class Post extends Model<Post> {
   @BelongsTo(() => User)
   user: User;
 
-  @BelongsToMany(() => Tag, () => TagsPost)
-  tags: Tag[];
+  /* @BelongsToMany(() => Tag, () => TagsPost)
+  tags: Tag[]; */
 }

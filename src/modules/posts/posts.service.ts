@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
-import { Post } from './posts.model';
+import { Post } from './models/posts.model';
 import { PostDto } from './dto/posts-dto';
-import { User } from 'src/users/users.model';
+import { User } from 'src/modules/users/users.model';
 
 @Injectable()
 export class PostsService {
