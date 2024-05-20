@@ -2,20 +2,19 @@ import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { SequelizeModule } from '@nestjs/sequelize';
 
-import { UsersModule } from './users/users.module';
-import { PostsModule } from './posts/posts.module';
-import { TagsModule } from './tags/tags.module';
-import { TagsPostModule } from './tags-post/tags-post.module';
-import { User } from './users/users.model';
-import { Post } from './posts/posts.model';
-import { Tag } from './tags/tags.model';
-import { TagsPost } from './tags-post/tags-post.model';
+import { User } from './modules/users/users.model';
+import { Post } from './modules/posts/models/posts.model';
+import { UsersModule } from './modules/users/users.module';
+import { PostsModule } from './modules/posts/posts.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
     }),
+    UsersModule,
+    PostsModule,
+
     SequelizeModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: (configService: ConfigService) => ({
@@ -25,14 +24,10 @@ import { TagsPost } from './tags-post/tags-post.model';
         username: configService.get('POSTGRES_USER'),
         password: configService.get('POSTGRES_PASSWORD'),
         database: configService.get('POSTGRES_DB'),
-        models: [User, Post, Tag, TagsPost],
+        models: [User, Post],
       }),
       inject: [ConfigService],
     }),
-    UsersModule,
-    PostsModule,
-    TagsModule,
-    TagsPostModule,
   ],
 })
 export class AppModule {}

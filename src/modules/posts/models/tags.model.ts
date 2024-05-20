@@ -6,8 +6,8 @@ import {
   BelongsToMany,
 } from 'sequelize-typescript';
 
-import { Post } from 'src/posts/posts.model';
-import { TagsPost } from 'src/tags-post/tags-post.model';
+import { Post } from './posts.model';
+import { TagsPost } from './tags-post.model';
 
 @Table({ tableName: 'tag' })
 export class Tag extends Model<Tag> {
