@@ -12,8 +12,7 @@ import { User } from 'src/modules/users/users.model';
 @Table({ tableName: 'post' })
 export class Post extends Model<Post> {
   @Column({
-    type: DataType.UUID,
-    defaultValue: DataType.UUIDV4,
+    type: DataType.INTEGER,
     unique: true,
     primaryKey: true,
     autoIncrement: false,
@@ -27,7 +26,7 @@ export class Post extends Model<Post> {
   content: string;
 
   @ForeignKey(() => User)
-  @Column({ type: DataType.UUID })
+  @Column({ type: DataType.INTEGER })
   userId: string;
 
   /* @ForeignKey(() => TagsPost)

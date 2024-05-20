@@ -3,7 +3,7 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Users', {
+    await queryInterface.createTable('Posts', {
       id: {
         primaryKey: true,
         autoIncrement: true,
@@ -21,10 +21,7 @@ module.exports = {
       userId: {
         type: Sequelize.DataTypes.INTEGER,
         references: {
-          model: {
-            tableName: 'Users',
-            schema: 'schema', // Как правильно сделать внешний ключ?
-          },
+          model: 'Users',
           key: 'id',
         },
         allowNull: false,
@@ -33,6 +30,6 @@ module.exports = {
   },
 
   async down(queryInterface) {
-    await queryInterface.dropTable('Users');
+    await queryInterface.dropTable('Posts');
   },
 };
